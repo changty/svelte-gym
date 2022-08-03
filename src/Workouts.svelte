@@ -28,7 +28,6 @@ const openWorkout = (id) => {
 }
 
 </script>
-All workouts<br />
 
 {#each workouts as workout} 
 <div on:click = {() => openWorkout(workout.id)}>

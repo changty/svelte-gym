@@ -61,3 +61,29 @@ input:disabled {
   .exercise h2 {
 	margin-top: 0px; 
   }
+
+.button-row {
+	display: flex; 
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: right;
+}
+
+.button-row button {
+	margin: 1rem .25rem;
+	margin-top: 2rem; 
+}
+
+button {
+	background: #040507;
+	color: #CED0D7;
+	border-radius: 20px; 
+	border: none; 
+	padding: .75rem 1.75rem;
+}
+
+button.link {
+	background: none; 
+	text-decoration: underline; 
+}

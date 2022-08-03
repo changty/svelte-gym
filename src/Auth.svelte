@@ -16,7 +16,6 @@ const emptyUser = {
 
 onMount(() => {
 		onAuthStateChanged(auth, (googleUser) => {
-			console.log("auth changed user: ", googleUser);
             if(googleUser == null) {
                 $user = emptyUser; 
             }            
@@ -43,7 +42,6 @@ const loginWithGoogle = async () => {
 }
 
 const goBack = () => {
-    console.log("go back"); 
     pop(); 
 }
 

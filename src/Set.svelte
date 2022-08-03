@@ -3,6 +3,7 @@
 
     const dispatch = createEventDispatcher(); 
 
+    export let previousSet; 
     export let set = {
         index: 0, 
         reps: 0, 
@@ -13,14 +14,15 @@
     const index = set.index+1; 
 
     const updateReps = (e) => {
-        console.log("reps", set.reps)
         dispatch('updateSet', set);
     }
 
     const updateWeights = (e) => {
-        console.log("weights", set.weight)
         dispatch('updateSet', set); 
     }
+
+    $: formattedPrevious = previousSet != null ? `${previousSet.reps} x ${previousSet.weight}` : '-'; 
+
 
 </script>
 
@@ -35,7 +37,7 @@
         {#if index == 1}
             <span>Previous</span>
         {/if}
-        10x10
+        {formattedPrevious}
     </div>
     <div class="item">
         {#if index == 1}
@@ -50,11 +52,9 @@
         {/if}
         <input  on:change={updateWeights} bind:value={set.weight}>
     </div>
-
 </div>
 
 <style>
-
 input {
     display:block;
     color:inherit;
@@ -63,7 +63,7 @@ input {
     background: none; 
     padding: 0; 
     margin:0;
-    width:90px;
+    width:60px;
 }
 input:active {
     border:0; 
@@ -82,7 +82,7 @@ input:active {
     padding: .5rem .75rem; 
     border-radius: 5px;
     margin: .2rem;
-    margin-bottom: 1rem; 
+    margin-bottom: .4rem; 
     text-align:center; 
     background: #1a1e29;
     flex-grow: 1; 
@@ -94,7 +94,7 @@ input:active {
     width: 100%; 
     text-align:center;
     position: absolute; 
-    top: -70%; 
+    top: -65%; 
     left: 0; 
 }
 

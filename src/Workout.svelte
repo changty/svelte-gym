@@ -9,7 +9,17 @@ let workout = {
     name: '', 
     description: '', 
     exercises: [],
-} 
+}
+
+let previousWorkout = null; 
+
+let edit = false; 
+
+const toggleEdit = () => {
+    edit = !edit; 
+}
+
+$:editLabel = edit ? 'done' : 'edit'; 
 
 onMount( async () => {
     const snap = await getDoc(doc(db, 'workouts', params.id)); 
@@ -20,27 +30,63 @@ onMount( async () => {
     else {
         console.log("Error fetching workout:", params); 
     }
+
+    if(workout.template != null) {
+        const previousSnap = await getDoc(doc(db, 'workouts', workout.template)); 
+        if(previousSnap.exists()) {
+            previousWorkout = previousSnap.data(); 
+
+            // update workout so layout updates... ugly 
+            workout = snap.data(); 
+        }
+        else {
+            console.log("no previous workout");
+        }
+
+    }
 });
 
-const update = async (e) => {
-    console.log("updating", params.id);
+const getPreviousExercise = (current) => {
+    if(previousWorkout != null) {
+        let res = previousWorkout.exercises.filter(exercise => exercise.name == current.name); 
+        
+        if(res.length > 0) {
+            return res[0]; 
+        }
+    }
+}
 
+const update = async (e) => {
     const docRef = doc(db, 'workouts', params.id);
     await updateDoc(docRef, {...workout }); 
 
-    console.log(workout); 
-
+    console.log("updating", workout); 
 }
 
 </script>
 
-<h2>{workout.name}</h2>
-<p>{workout.description}</p>
+{#if edit}
+<input bind:value={workout.name} on:change={update}/>
+<textarea bind:value={workout.description} on:change={update}></textarea>
+
+{:else}
+    <h2>{workout.name}</h2>
+    <p>{workout.description}</p>
+{/if}
+<div class="edit" on:click={toggleEdit}>{editLabel}</div>
+
 {#each workout.exercises as exercise} 
-    <Exercise on:updateExercise={update} {exercise}/>
+    <Exercise on:updateExercise={update} {exercise} previousExercise = {getPreviousExercise(exercise)}/>
 {/each}
 
 
 <style>
+input {
+    width: 100%; 
+}
+
+textarea {
+    width: 100%; 
+}
 
 </style>
