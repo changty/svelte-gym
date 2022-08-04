@@ -84,7 +84,7 @@ input:active {
     margin: .2rem;
     margin-bottom: .4rem; 
     text-align:center; 
-    background: #1a1e29;
+    background: #11141b;;
     flex-grow: 1; 
 }
 
@@ -96,6 +96,7 @@ input:active {
     position: absolute; 
     top: -65%; 
     left: 0; 
+    opacity: .4; 
 }
 
 </style>

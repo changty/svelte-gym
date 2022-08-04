@@ -50,12 +50,12 @@ const goBack = () => {
 <nav>
     {#if $user.loggedIn} 
         {#if $location !== '/'}
-            <button class="btn" on:click={goBack}>Back</button>
+            <button class="btn top-button" on:click={goBack}>Back</button>
         {/if}
             <p>
                 {$user.name}
             </p>
-			<button on:click={logout}>Logout</button>
+			<button class="top-button" on:click={logout}>Logout</button>
     {:else}
         <button on:click={loginWithGoogle} class="btn btn-outline-dark login-button" style="text-transform:none">
             <img style="width: 35px; margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
@@ -73,12 +73,18 @@ const goBack = () => {
         flex-direction: row; 
         flex-wrap: nowrap; 
         align-content: space-between;
-        justify-content: center;
+        justify-content: baseline;
+        margin-bottom: 2rem; 
     }
 
     nav p {
         flex-grow: 1; 
     }
 
+
+    .top-button {
+        background: #0a0d12;
+
+    }
 </style>
 

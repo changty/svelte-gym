@@ -4,7 +4,11 @@ import { createEventDispatcher } from 'svelte';
 
 const dispatch = createEventDispatcher(); 
 
-export let previousExercise = null; 
+export let previousExercise = {
+    name: '',
+    notes: '',
+    sets: []
+}; 
 
 export let exercise  = {
     name: '',
@@ -21,6 +25,9 @@ const toggleEdit = () => {
 $:editLabel = edit ? 'done' : 'edit'; 
 
 const update = (e) => {
+    // causes update on sets
+    exercise.sets = [...exercise.sets];
+    
     dispatch('updateExercise', exercise); 
 }
 
@@ -41,13 +48,24 @@ const removeSet = (e) => {
 }
 
 const getPreviousSet = (current) => {
-    if(previousExercise != null) {
-        let res = previousExercise.sets.filter(set => set.index == current.index)
-        if(res.length > 0) {
+    let res = previousExercise.sets.filter(set => set.index == current.index)
+    if(res.length > 0) {
             return res[0]; 
-        }
     }
 }
+
+const remove = () => {
+    dispatch('remove', exercise); 
+}
+
+$: totalCurrent = exercise.sets.reduce((previous, current) => {
+        return previous + (current.reps*current.weight);
+    }, 0);
+ 
+    
+$: totalPrevious = previousExercise.sets.reduce((previous, current) => {
+    return previous + (current.reps*current.weight);
+}, 0);
 
 </script>
 
@@ -55,9 +73,11 @@ const getPreviousSet = (current) => {
     {#if edit}
         <input bind:value={exercise.name} on:change={update}/>
         <textarea bind:value={exercise.notes} on:change={update}></textarea>
+        <div class="edit delete" on:click={remove}>Delete</div>
     {:else}
         <h2>{ exercise.name } </h2>
         <p class="notes">{ exercise.notes}</p>
+        <p>Volume: {totalCurrent} / {totalPrevious}</p>
     {/if}
 
     <div class="edit" on:click={toggleEdit}>{editLabel}</div>
@@ -81,6 +101,8 @@ textarea {
     width: 100%; 
 }
 .exercise {
+    z-index: 1; 
+    position:relative; 
     padding: 1rem 1rem; 
 }
 
@@ -89,5 +111,11 @@ h2 {
 }
 .notes {
     font-size: .9rem; 
+}
+
+.delete {
+    z-index: 2; 
+    position: absolute; 
+    right: 1rem; 
 }
 </style>

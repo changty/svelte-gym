@@ -11,7 +11,11 @@ let workout = {
     exercises: [],
 }
 
-let previousWorkout = null; 
+let previousWorkout = {
+    name: '',
+    description: '',
+    exercises: []
+}; 
 
 let edit = false; 
 
@@ -31,7 +35,7 @@ onMount( async () => {
         console.log("Error fetching workout:", params); 
     }
 
-    if(workout.template != null) {
+    if(workout.template != null && workout.template != '') {
         const previousSnap = await getDoc(doc(db, 'workouts', workout.template)); 
         if(previousSnap.exists()) {
             previousWorkout = previousSnap.data(); 
@@ -60,7 +64,28 @@ const update = async (e) => {
     const docRef = doc(db, 'workouts', params.id);
     await updateDoc(docRef, {...workout }); 
 
-    console.log("updating", workout); 
+    // forces update on exercises (volume)
+    // workout = {...workout};
+
+    console.log("updating"); 
+}
+
+const addNewExercise = () => {
+    let newExercise  = {
+        name: '',
+        notes: '',
+        sets: []
+    }; 
+
+    console.log(workout.exercises); 
+    workout.exercises = [...workout.exercises, newExercise]
+    console.log("adds new exercise", workout.exercises); 
+}
+
+const remove = (e) => {
+    let exercise = e.detail; 
+    workout.exercises = workout.exercises.filter(e => e.name != exercise.name); 
+    update(); 
 }
 
 </script>
@@ -76,8 +101,10 @@ const update = async (e) => {
 <div class="edit" on:click={toggleEdit}>{editLabel}</div>
 
 {#each workout.exercises as exercise} 
-    <Exercise on:updateExercise={update} {exercise} previousExercise = {getPreviousExercise(exercise)}/>
+    <Exercise on:updateExercise={update} on:remove={remove} {exercise} previousExercise = {getPreviousExercise(exercise)}/>
 {/each}
+
+<button class="add-new" on:click={addNewExercise}>Add new exercise</button>
 
 
 <style>
@@ -88,5 +115,6 @@ input {
 textarea {
     width: 100%; 
 }
+
 
 </style>

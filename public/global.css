@@ -52,7 +52,7 @@ input:disabled {
 	text-align: left; 
 	border-radius: 10px; 
 	width: 100%; 
-	background: #11141b;
+	background: #0a0d12;
 	padding: 1rem 2rem;
 	margin: 1rem 0rem;
   }
@@ -86,4 +86,30 @@ button {
 button.link {
 	background: none; 
 	text-decoration: underline; 
+}
+
+.edit {
+	font-size: .8rem; 
+	opacity: .5; 
+	text-decoration: underline; 
+}
+
+textarea {
+	background: #11141b;
+	color: #CED0D7;
+	border: 1px solid black; 
+	border-radius: 5px; 
+	height: 300px; 
+}
+
+input {
+	background: #11141b;
+	color: #CED0D7;
+	border: 1px solid black; 
+	border-radius: 5px; 
+}
+
+button.add-new {
+    background: #0a0d12;
+    width: 100%; 
 }
