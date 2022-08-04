@@ -3,7 +3,10 @@
 
     const dispatch = createEventDispatcher(); 
 
-    export let previousSet; 
+    export let previousSet = {
+        reps: 0,
+        weight: 0
+    }; 
     export let set = {
         index: 0, 
         reps: 0, 
@@ -23,11 +26,13 @@
 
     $: formattedPrevious = previousSet != null ? `${previousSet.reps} x ${previousSet.weight}` : '-'; 
 
+    $: isBetter = set.reps*set.weight > previousSet.reps*previousSet.weight; 
+
 
 </script>
 
 <div class="set">
-    <div class="item">
+    <div class="item {isBetter ? 'green' : ''}">
         {#if index == 1}
           <span>Set </span>
         {/if}
@@ -55,6 +60,11 @@
 </div>
 
 <style>
+
+.item.green {
+    background: #7adec4; 
+    color: #121212!important;
+}
 input {
     display:block;
     color:inherit;
@@ -64,6 +74,7 @@ input {
     padding: 0; 
     margin:0;
     width:60px;
+    font-size: 16px; 
 }
 input:active {
     border:0; 

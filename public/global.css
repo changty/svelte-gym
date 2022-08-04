@@ -8,12 +8,17 @@ html, body {
 }
 
 body {
-	background: #040507;
-	color: #CED0D7;
+	background: rgb(14, 13, 18);
+	color: rgb(226,226,226);
 	margin: 0;
 	padding: 8px;
 	box-sizing: border-box;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-size: 16px; 
+}
+
+main {
+	margin-top: 66px !important; 
 }
 
 a {
@@ -52,7 +57,7 @@ input:disabled {
 	text-align: left; 
 	border-radius: 10px; 
 	width: 100%; 
-	background: #0a0d12;
+	background: rgb(28, 26, 30);
 	padding: 1rem 2rem;
 	margin: 1rem 0rem;
   }
@@ -76,7 +81,7 @@ input:disabled {
 }
 
 button {
-	background: #040507;
+	background: #0e1219;
 	color: #CED0D7;
 	border-radius: 20px; 
 	border: none; 
@@ -92,6 +97,8 @@ button.link {
 	font-size: .8rem; 
 	opacity: .5; 
 	text-decoration: underline; 
+	display:inline; 
+
 }
 
 textarea {
@@ -110,6 +117,11 @@ input {
 }
 
 button.add-new {
-    background: #0a0d12;
     width: 100%; 
+    background: #7adec4!important;
+    color: #121212!important;
+}
+
+.green-txt {
+	color: #7adec4; 
 }

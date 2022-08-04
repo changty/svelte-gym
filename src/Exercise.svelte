@@ -18,6 +18,8 @@ export let exercise  = {
 
 let edit = false; 
 
+let active = false; 
+
 const toggleEdit = () => {
     edit = !edit; 
 }
@@ -27,7 +29,7 @@ $:editLabel = edit ? 'done' : 'edit';
 const update = (e) => {
     // causes update on sets
     exercise.sets = [...exercise.sets];
-    
+
     dispatch('updateExercise', exercise); 
 }
 
@@ -69,30 +71,59 @@ $: totalPrevious = previousExercise.sets.reduce((previous, current) => {
 
 </script>
 
-<div class="exercise">
+<div class="exercise" on:click|self={() =>  active = !active}>
     {#if edit}
         <input bind:value={exercise.name} on:change={update}/>
         <textarea bind:value={exercise.notes} on:change={update}></textarea>
         <div class="edit delete" on:click={remove}>Delete</div>
     {:else}
-        <h2>{ exercise.name } </h2>
-        <p class="notes">{ exercise.notes}</p>
-        <p>Volume: {totalCurrent} / {totalPrevious}</p>
+    <div class="header">
+        <div class="info">
+            <h2>{ exercise.name } </h2>
+            <p class="notes">{ exercise.notes}</p>
+        </div>
+        <div class="volume">
+            <p>Volume: <b class="{totalCurrent > totalPrevious ? 'green-txt' : ''}">{totalCurrent}</b> / {totalPrevious}</p>
+        </div>
+
+    </div>
     {/if}
 
     <div class="edit" on:click={toggleEdit}>{editLabel}</div>
-    <br/><br/>
-    {#each exercise.sets as set, i}
-        <Set on:updateSet={update} {set} previousSet={getPreviousSet(set)}/>
-    {/each}
+    
+    <div class="sets {active ? 'active' : ''}">
+        {#each exercise.sets as set, i}
+            <Set on:updateSet={update} {set} previousSet={getPreviousSet(set)}/>
+        {/each}
+    </div>
 
-    <div class="button-row">
+    <div class="button-row {active ? '' : 'hidden'}">
         <button class="btn link" on:click={removeSet}>Remove set</button>
         <button class="btn" on:click={addSet}>Add set</button>
     </div>
 </div>
 <style>
+.header {
+    display:flex; 
+    flex-direction: row; 
+    flex-wrap:nowrap; 
+    justify-content: space-between;
+}
+.volume, .volume p {
+    padding: 0; 
+    margin:0; 
+}
+.hidden {
+    display: none; 
+}
+.sets {
+    display: none; 
+    margin-top: 3rem;
+}
 
+.sets.active {
+    display: block; 
+}
 input {
     width: 100%; 
 }
@@ -109,7 +140,7 @@ textarea {
 h2 {
     font-size: 1rem; 
 }
-.notes {
+p {
     font-size: .9rem; 
 }
 
