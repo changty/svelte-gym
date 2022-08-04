@@ -52,7 +52,7 @@ const goBack = () => {
         {#if $location !== '/'}
             <button class="btn top-button" on:click={goBack}>Back</button>
         {/if}
-            <p>{$user.name}</p>
+            <p><b>{$user.name}</b></p>
 			<button class="top-button" on:click={logout}>Logout</button>
     {:else}
         <button on:click={loginWithGoogle} class="btn btn-outline-dark login-button" style="text-transform:none">
@@ -76,6 +76,8 @@ const goBack = () => {
         align-content: space-between;
         justify-content: center;
         background: rgb(28, 26, 30);
+        background: #1c2221;
+
         padding: .5rem .5rem; 
 
     }

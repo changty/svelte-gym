@@ -18,7 +18,7 @@ export let exercise  = {
 
 let edit = false; 
 
-let active = false; 
+export let active = false; 
 
 const toggleEdit = () => {
     edit = !edit; 
@@ -77,7 +77,7 @@ $: totalPrevious = previousExercise.sets.reduce((previous, current) => {
         <textarea bind:value={exercise.notes} on:change={update}></textarea>
         <div class="edit delete" on:click={remove}>Delete</div>
     {:else}
-    <div class="header">
+    <div class="header" on:click|self={() =>  active = !active}>
         <div class="info">
             <h2>{ exercise.name } </h2>
             <p class="notes">{ exercise.notes}</p>
@@ -113,6 +113,12 @@ $: totalPrevious = previousExercise.sets.reduce((previous, current) => {
     padding: 0; 
     margin:0; 
 }
+
+.notes,
+.volume {
+    opacity: 0.8;
+}
+
 .hidden {
     display: none; 
 }

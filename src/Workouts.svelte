@@ -46,8 +46,40 @@ const addNewWorkout = async () => {
    workouts = [newWorkout, ...workouts];
 }
 
+$: getNextWorkout = () => {
+   let uniques = []; 
+   
+   for(let i=0; i<workouts.length; i++) {
+         let workout = workouts[i].name.trim().toLowerCase(); 
+         
+         if(!uniques.includes(workout)) {
+            
+            uniques.push(workout); 
+         }
+         else {
+            break; 
+         }
+      
+   }
+
+   if(uniques.length == 0) {
+      return null; 
+   }
+   console.log(uniques[uniques.length-1]);
+   let next = workouts.find(w => w.name.trim().toLowerCase()  === uniques[uniques.length-1]); 
+   return next; 
+}
+
 </script>
 <button class="add-new" on:click={addNewWorkout}>Add new workout</button>
+
+{#if getNextWorkout() != null}
+<br><br>
+<h4>Suggested next</h4>
+   <div class="suggested">
+      <Workout on:copyNew={copyNew} workout={getNextWorkout()}/>
+   </div>
+{/if}
 
 {#each workouts as workout} 
    <Workout on:copyNew={copyNew} {workout} />
@@ -55,5 +87,9 @@ const addNewWorkout = async () => {
 
 
 <style>
+.suggested {
+   margin-bottom: 3rem; 
+}
+
 
 </style>

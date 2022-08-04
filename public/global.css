@@ -9,6 +9,7 @@ html, body {
 
 body {
 	background: rgb(14, 13, 18);
+	background: #0e100f;
 	color: rgb(226,226,226);
 	margin: 0;
 	padding: 8px;
@@ -58,6 +59,7 @@ input:disabled {
 	border-radius: 10px; 
 	width: 100%; 
 	background: rgb(28, 26, 30);
+	background: #1c2221;
 	padding: 1rem 2rem;
 	margin: 1rem 0rem;
   }
@@ -124,4 +126,9 @@ button.add-new {
 
 .green-txt {
 	color: #7adec4; 
+}
+
+.suggested .workout {
+	background: #25695a
+	
 }

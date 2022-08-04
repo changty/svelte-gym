@@ -100,8 +100,8 @@ const remove = (e) => {
 {/if}
 <div class="edit" on:click={toggleEdit}>{editLabel}</div>
 
-{#each workout.exercises as exercise} 
-    <Exercise on:updateExercise={update} on:remove={remove} {exercise} previousExercise = {getPreviousExercise(exercise)}/>
+{#each workout.exercises as exercise, i} 
+    <Exercise on:updateExercise={update} on:remove={remove} {exercise} previousExercise = {getPreviousExercise(exercise)} active={i==0}/>
 {/each}
 
 <button class="add-new" on:click={addNewExercise}>Add new exercise</button>
