@@ -80,7 +80,7 @@ $: totalPrevious = previousExercise.sets.reduce((previous, current) => {
     <div class="header" on:click|self={() =>  active = !active}>
         <div class="info">
             <h2>{ exercise.name } </h2>
-            <p class="notes">{ exercise.notes}</p>
+            <p class="notes" style="white-space: pre-line;">{ exercise.notes}</p>
         </div>
         <div class="volume">
             <p>Volume: <b class="{totalCurrent > totalPrevious ? 'green-txt' : ''}">{totalCurrent}</b> / {totalPrevious}</p>

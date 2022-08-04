@@ -95,8 +95,8 @@ const remove = (e) => {
 <textarea bind:value={workout.description} on:change={update}></textarea>
 
 {:else}
-    <h2>{workout.name}</h2>
-    <p>{workout.description}</p>
+    <h2 style="text-align:left">{workout.name}</h2>
+    <p style="white-space: pre-line; text-align:left">{workout.description}</p>
 {/if}
 <div class="edit" on:click={toggleEdit}>{editLabel}</div>
 
