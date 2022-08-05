@@ -8,8 +8,7 @@ export let previousExercise = {
     name: '',
     notes: '',
     sets: []
-}; 
-
+};  
 export let exercise  = {
     name: '',
     notes: '',
@@ -52,7 +51,12 @@ const removeSet = (e) => {
 const getPreviousSet = (current) => {
     let res = previousExercise.sets.filter(set => set.index == current.index)
     if(res.length > 0) {
-            return res[0]; 
+        return res[0]; 
+    }
+
+    return {
+        weight: 0,
+        reps: 0
     }
 }
 
@@ -61,10 +65,9 @@ const remove = () => {
 }
 
 $: totalCurrent = exercise.sets.reduce((previous, current) => {
-        return previous + (current.reps*current.weight);
-    }, 0);
+    return previous + (current.reps*current.weight);
+}, 0);
  
-    
 $: totalPrevious = previousExercise.sets.reduce((previous, current) => {
     return previous + (current.reps*current.weight);
 }, 0);

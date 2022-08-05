@@ -57,6 +57,13 @@ const getPreviousExercise = (current) => {
         if(res.length > 0) {
             return res[0]; 
         }
+        else{
+            return {
+                name: '',
+                notes: '',
+                sets: []
+            }; 
+        }
     }
 }
 

@@ -4,6 +4,7 @@ import {onMount} from 'svelte';
 import { workoutsDB, db } from './Firebase'; 
 import { query, where, orderBy, getDocs, addDoc, collection } from 'firebase/firestore'; 
 import { user } from './stores'; 
+import { push } from 'svelte-spa-router'; 
 import Workout from './WorkoutCompact.svelte'; 
 
 
@@ -24,10 +25,13 @@ onMount(async () => {
 
 const copyNew = async (e) => {
    let newWorkout = e.detail
+   newWorkout.createdAt = Date.now(); 
 
    const docRef = await addDoc(collection(db, 'workouts'), newWorkout); 
    newWorkout.id = docRef.id; 
    workouts = [newWorkout, ...workouts];
+
+   push('/workout/' + newWorkout.id);
 }
 
 
