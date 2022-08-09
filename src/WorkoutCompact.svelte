@@ -35,7 +35,7 @@ const copy = async () => {
   newWorkout.exercises.forEach((exercise) => {
     exercise.sets.forEach((set) => {
       set.weight = 0; 
-      set.reps = 0; 
+      // set.reps = 0; 
     })
   });
   console.log(newWorkout); 

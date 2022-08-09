@@ -26,7 +26,7 @@
 
     $: formattedPrevious = previousSet != null ? `${previousSet.reps} x ${previousSet.weight}` : '-'; 
 
-    $: isBetter = set.reps*set.weight > previousSet.reps*previousSet.weight; 
+    $: isBetter = set.reps*set.weight >= previousSet.reps*previousSet.weight; 
 
 
 </script>

@@ -69,7 +69,7 @@ $: getNextWorkout = () => {
    if(uniques.length == 0) {
       return null; 
    }
-   console.log(uniques[uniques.length-1]);
+
    let next = workouts.find(w => w.name.trim().toLowerCase()  === uniques[uniques.length-1]); 
    return next; 
 }
